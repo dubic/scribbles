@@ -1,0 +1,184 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Apr 1, 2014, 9:20:04 PM
+    Author     : dubem
+*/
+
+.span-block{
+    color: #fff;
+    font-size: 16px;
+    padding: 7px 13px;
+    position: absolute;
+    background: #169ef4;
+}
+
+.list-text li a{
+    color: #557386;
+    display: block;
+    font-size: 14px;
+    padding: 8px 10px;
+    margin-bottom: 1px;
+    background: #f0f6fa;
+    border-left: solid 2px #c4d5df;
+}
+.list-text li a:hover{
+    color:#169ef4;
+    background:#ecf5fb;
+    text-decoration:none;
+    border-left:solid 2px #169ef4;
+}
+.number{
+    font-size: 25px !important;
+}
+.right-actions{
+    /*display: inline-block;*/
+    padding: 0;
+    /*margin-right: 10px;*/
+    /*margin-top: 6px;*/
+    float: right;
+}
+.icon-edit{
+    cursor:pointer;
+}
+.row{
+    margin-right: 0;
+    margin-left: 0;
+    margin-top: 2px
+}
+.control-inline{
+    width:auto !important;
+    display:inline !important;
+}
+.hover-background{
+    padding: 5px 0px;
+}
+.hover-background:hover{
+    background: silver;
+}
+.underline{
+    border-bottom: solid 1px #c4d5df;
+}
+.profile-bio > .row{
+    border-bottom: solid 1px #c4d5df;
+    padding: 5px 0px;
+}
+.nav-link{
+    display: inline-block;
+    /*margin-top: 10px;*/
+    /*color: #fff;*/
+    /*font-size: 14px;*/
+    padding: 0px;
+    text-align: left;
+    text-decoration: none;
+}
+.nav-link:hover{
+    color:#c4d5df;
+    text-decoration: none;
+}
+.middle-page{
+    width: 65%;
+    margin:auto;
+}
+.circle{
+    border-radius:999px;
+    background:#C0C0C0;
+    border :3px solid #C0C0C0;
+    cursor:pointer;
+}
+.post-links li {
+    color:#9A9A9A;
+    margin: 5px 20px 5px 0px;
+    font-size: 20px;
+}
+.post-links li a{
+    color:#9A9A9A;
+    font-weight: bold;
+}
+.post-links li a:hover, .post-links li a.active{
+    color:#435DA9;
+    text-decoration: none;
+    border-bottom: 3px solid #004080;
+}
+.container{
+    margin-top:   10px;
+    padding:0px;
+}
+.dpopover{
+    border: 1px solid #F1F1F1;
+    margin-top:10px;
+    max-width: 300px;
+    min-width: 300px;
+    position: absolute;
+    background: #E0E0E0;
+    left:auto;
+    top:auto;
+    display:none;
+    z-index:10001;
+
+}
+.dpopover:after{
+    position: absolute;
+    top: -6px;
+    left: 15px;
+    display: inline-block !important;
+    border-right: 6px solid transparent;
+    border-bottom: 6px solid #C0C0C0;
+    border-left: 6px solid transparent;
+    content: "";
+}
+.dpopover:before{
+    position: absolute;
+    top: -7px;
+    left: 14px;
+    display: inline-block !important;
+    border-right: 7px solid transparent;
+    border-bottom: 7px solid #C0C0C0;
+    border-left: 7px solid transparent;
+    content: "";
+}
+.dpopover .pop-head{
+    display: block;
+    font-weight: bold;
+    border-bottom: 0.6px solid #C0C0C0;
+    padding: 5px 10px;
+    background: #C0C0C0;
+}
+.dpopover .pop-head span{
+    color:#557386;
+    margin:0px;
+}
+.dpopover .pop-head i{
+    position: absolute;
+    right: 5px;
+    cursor: pointer;
+}
+.dpopover .pop-body{
+    display: block;
+    padding: 5px 10px;
+}
+.form-text{
+    font-size: 14px;
+    font-weight: normal;
+    color: #333;
+    background-color: #FFF;
+    border: 1px solid #E5E5E5;
+    padding: 5px;
+    box-shadow: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    -webkit-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+    transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+}
+.form-text:focus {
+    border-color: #999999;
+    outline: 0;
+    -webkit-box-shadow: none !important;
+    box-shadow: none !important;
+}
+.ajax-loader{
+    display:none;
+}

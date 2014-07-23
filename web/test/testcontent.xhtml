@@ -1,0 +1,47 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="./testplate.xhtml"
+                xmlns:d="http://xmlns.jcp.org/jsf/component"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+
+    <ui:define name="content">
+        <div class="page-container">
+            <div class="middle-page">
+                <div class="row">
+                    <ul class="horizontal post-links" style="margin: auto;display: table">
+                        <li><a href="#" class="active">Jokes</a></li>
+                        <li><a href="#">Quotes</a></li>
+                        <li><a href="#">Proverbs</a></li>
+                    </ul>
+                </div>
+
+                <section class="container row" style="background: #DDD">
+                    <div style="width: 50%;margin: auto">   
+                        <input placeholder="Search..." class="form-control" style="width: 70%;display: inline" type="text"></input>
+                        <span><button type="button" class="btn green">  Search &nbsp;   <i class="m-icon-swapright m-icon-white"></i></button></span>    
+                    </div>
+                </section>
+
+                <section class="container row" style="background: #DDD">
+                    <div style="width: 50%;margin: auto">   
+                        <h:form>
+                            <div class="row"><h:inputTextarea id="comment-txt" value="#{moBean.joke}" p:placeholder="post something" style="width: 100%" ></h:inputTextarea></div>
+                            <div class="pull-right"><h:commandButton class="btn blue" value="post">
+                                    <f:ajax  execute="@form" render="@form" listener="#{moBean.postJoke}"/>
+                                </h:commandButton></div>
+                            <d:tscript value="updatePosted" binding="#{moBean.script}"/>
+                        </h:form>
+                    </div>
+                </section>
+
+                <section class="container">
+                    <ui:include src="testjokes.xhtml"/>
+                </section>
+            </div>
+        </div>
+    </ui:define>
+
+</ui:composition>

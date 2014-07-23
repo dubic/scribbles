@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+  <persistence-unit name="scribblesPU" transaction-type="RESOURCE_LOCAL">
+    <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+    <class>com.dubic.scribbles.idm.models.User</class>
+    <class>com.dubic.scribbles.models.Joke</class>
+    <class>com.dubic.scribbles.models.MediaItem</class>
+    <class>com.dubic.scribbles.models.Profile</class>
+    <class>com.dubic.scribbles.models.Comment</class>
+    <class>com.dubic.scribbles.application.LogModel</class>
+    <class>com.dubic.scribbles.idm.models.Group</class>
+    <class>com.dubic.scribbles.idm.models.PersistentLogin</class>
+    <class>com.dubic.scribbles.idm.models.Role</class>
+    <class>com.dubic.scribbles.idm.models.Token</class>
+    <exclude-unlisted-classes>false</exclude-unlisted-classes>
+  </persistence-unit>
+</persistence>

@@ -1,0 +1,196 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Mar 13, 2014, 9:17:28 PM
+    Author     : dubem
+*/
+.bold{
+    font-weight: bold;
+}
+.vertical{
+    list-style: none;
+    margin: 0px;
+    padding: 0px;
+}
+.left{
+    float: left;
+    margin: 0px 10px 0px 0px;
+}
+.right{
+    float: right;
+}
+.clear{
+    clear: both;
+}
+.horizontal{
+    list-style: none;
+}
+.horizontal li{
+    display: inline;
+}
+.border1{
+    border: #AFAFAF 1px solid;
+    border-radius: 4px;
+}
+
+
+.btn.green:hover, 
+.btn.green:focus, 
+.btn.green:active, 
+.btn.green.active,
+.btn.green.disabled, 
+.btn.green[disabled]{ 
+    background-color: #1d943b !important;
+    color: #fff !important;
+    outline: none !important;
+}
+.link-btn-grp{
+    padding: 10px;
+    margin-top: 5px;
+    border-top: 1px solid #ddd;
+}
+.link-btn-grp a{
+    /*background-color: #fafafa !important;*/
+border: 1px solid #ddd;
+    padding: 5px 10px;
+    border-radius: 5px;
+    margin: 5px 5px 0 0;
+    -webkit-transition: border 0.3s ease !important;
+    -moz-transition: all 0.3s ease !important;
+    -ms-transition: all 0.3s ease !important;
+    -o-transition: all 0.3s ease !important;
+    transition: all 0.3s ease !important;
+    cursor: pointer;
+    text-decoration: none;
+    font-family: 'Open Sans', sans-serif;
+    margin-top: 5px;
+    margin-bottom: 20px;
+    color: #000;
+    font-size: 12px;
+    font-weight: 300;
+}
+.link-btn-grp a:hover {
+    border: 2px solid #ddd;
+    text-decoration: none !important;
+    border-color: #999 !important;
+    color: #444 !important;
+    text-shadow: 0 1px 0px rgba(255, 255, 255, 1) !important;
+    -webkit-transition: all 0.3s ease !important;
+    -moz-transition: all 0.3s ease !important;
+    -ms-transition: all 0.3s ease !important;
+    -o-transition: all 0.3s ease !important;
+    transition: all 0.3s ease !important;
+    -webkit-box-shadow: none !important;
+    -moz-box-shadow: none !important;
+    box-shadow: none !important;
+}
+.container{
+    /*    margin: 5px 0px;
+        padding: 5px;*/
+    font-family: 'Open Sans', sans-serif;
+    font-size: 13px;
+    background: #f0f0f0 url(img/background.gif) repeat -70% 0;
+}
+.post-header{
+    padding: 5px;
+    border-bottom: 1px solid #ddd;
+}
+.post-header a{
+    color: #4083a9;
+    outline: none;
+    text-decoration: none
+}
+.post-body{
+    padding: 5px;
+}
+.comments {
+    list-style: none;
+    margin:  5px 0px;
+    padding: 0px;
+    border-top: 1px solid #ddd;
+
+}
+.comments li{
+    border-bottom: 1px solid #ddd;
+    padding: 5px;
+}
+
+h2{
+    margin: 0;
+    padding: 0;
+    font-size: 100%;
+    vertical-align: baseline;
+    border: 0;
+    outline: 0;
+    background: transparent;
+}
+
+/*html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, font, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td {
+    margin: 0;
+    padding: 0;
+    font-size: 100%;
+    vertical-align: baseline;
+    border: 0;
+    outline: 0;
+    background: transparent;
+}*/
+
+textarea{
+/*    width: 100%;
+
+box-sizing: border-box;
+max-width: none;
+box-shadow: 0 1px 3px #e8e8e8 inset;
+padding: 2px 3px;*/
+overflow: hidden;
+word-wrap: break-word;
+border: 3px solid #ccc;
+padding: 5px;
+/*position: absolute;*/
+min-height: 56px;
+font-size: 12px;
+line-height: 18px;
+width: 100%;
+resize:none;
+}
+
+.poster-img{
+    border-radius:999px;
+    background:#C0C0C0;
+    border :3px solid #C0C0C0;
+    cursor:pointer;
+}
+
+.post p{
+    padding:5px;
+	text-align:justify
+}
+.date-grey{
+    color:#999;
+    font-size: 11px;
+}
+.post-container{
+    background: #FFF;
+    padding: 10px;
+    border: 1px solid #CCC;
+    border-radius: 4px;
+    margin-bottom: 10px;
+}
+.post-container .person{
+    color: #4083a9;
+    outline: none;
+    text-decoration: none
+}
+.comments-body{
+    display: none;
+}
+.stats span{
+    margin-right: 15px;
+}
+
+body{
+    /*background: url('img/background.gif')*/
+}

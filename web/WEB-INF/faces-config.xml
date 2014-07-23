@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<faces-config version="2.2"
+              xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd">
+
+    <application> 
+        <el-resolver> 
+            org.springframework.web.jsf.el.SpringBeanFacesELResolver 
+        </el-resolver> 
+    </application>
+<!--    <factory>
+        <exception-handler-factory>com.dubic.scribbles.application.ExceptionFactory</exception-handler-factory>
+    </factory>-->
+    <managed-bean>
+        <description>Current date and time</description>
+        <managed-bean-name>now</managed-bean-name>
+        <managed-bean-class>java.util.Date</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+</faces-config>

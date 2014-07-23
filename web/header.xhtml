@@ -1,0 +1,249 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:d="http://xmlns.jcp.org/jsf/component"
+
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <style>
+        .header{
+            /*background: #4D9EF8 !important;*/
+            color:#FFF !important;
+        }
+    </style>
+    <header>
+
+        <div class="header navbar navbar-inverse navbar-fixed-top">
+            <!-- BEGIN TOP NAVIGATION BAR -->
+            <div class="header-inner">
+                <!-- BEGIN LOGO -->  
+                <a class="navbar-brand" href="index.html">
+                    <!--<img src="assets/img/logo.png" alt="Scribbles" class="img-responsive">-->
+                    Scribbles
+                </a>
+                <!-- END LOGO -->
+
+                <h:outputLink rendered="#{not userSession.authenticated}" value="#" class="navbar-brand pull-right" p:data-toggle="modal" p:data-target="#loginModal">Login|Sign up</h:outputLink>
+                <!--<a class="navbar-brand pull-right" data-toggle="modal" data-target="#loginModal" href="#">Login</a>-->
+                <!-- BEGIN TOP NAVIGATION MENU -->
+                <h:panelGroup rendered="#{userSession.authenticated}">
+                    <ul class="nav navbar-nav pull-right">
+                        <!-- BEGIN USER LOGIN DROPDOWN -->
+                        <li class="dropdown user">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-click="dropdown" data-backdrop="static" data-close-others="true">
+                                <img alt="" src="assets/img/avatar1_small.jpg"></img>
+                                <span class="username">John May</span>
+                                <i class="icon-angle-down"></i>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a href="profile.jsf"><i class="icon-user"></i> My Profile</a></li>
+                                <li><a href="login.html"><i class="icon-key"></i> Log Out</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <!-- END USER LOGIN DROPDOWN -->
+                    </ul>
+                </h:panelGroup>
+                <!-- END TOP NAVIGATION MENU -->
+            </div>
+            <!-- END TOP NAVIGATION BAR -->
+        </div>
+        <div class="clearfix"></div>
+    </header>
+
+
+    <!--LOGIN MODAL BOX-->
+    <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+        <div class="modal-dialog" style="width: 350px">
+            <div class="modal-content login">
+                <div class="content">
+                    <!-- BEGIN LOGIN FORM -->
+                    <aside class="login-cont">
+                        <h:form prependId="false">
+                            <h3 class="form-title">Login to your account</h3>
+                            <d:message/>
+                            <div class="form-group">
+                                <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
+                                <label class="control-label visible-ie8 visible-ie9">Username</label>
+                                <div class="input-icon">
+                                    <i class="icon-user"></i>
+                                    <!--<input class="form-control placeholder-no-fix" type="text" autocomplete="off" placeholder="Username" name="username"/>-->
+                                    <h:inputText class="form-control" p:placeholder="email" id="lemail" required="true" value="#{usersRequest.email}" requiredMessage="Please enter your email"/>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label visible-ie8 visible-ie9">Password</label>
+                                <div class="input-icon">
+                                    <i class="icon-lock"></i>
+                                    <!--<input class="form-control placeholder-no-fix" type="password" autocomplete="off" placeholder="Password" name="password"/>-->
+                                    <h:inputSecret class="form-control" p:placeholder="password" id="lpassword" value="#{usersRequest.password}" required="true" requiredMessage="Please enter your password"/>
+                                </div>
+                            </div>
+                            <div class="form-actions">
+                                <label class="checkbox">
+                                    <input type="checkbox" name="remember" value="1"/> Remember me
+                                </label>
+                                <h:commandButton id="loginBtn" class="btn blue pull-right" value="Login">
+                                    <f:ajax execute="@form" render="@form" listener="#{usersRequest.login}" onevent="loginEvt"/>
+                                </h:commandButton>
+                                <span id="loginLdr" class="ajax-loader pull-right" style="padding: 10px 0px;"><img src="assets/img/loading.gif"/></span>
+                            </div>
+                            <div class="forget-password">
+                                <h4>Forgot your password ?</h4>
+                                <p>
+                                    no worries, click <a href="javascript:;"  id="forget-password">here</a>
+                                    to reset your password.
+                                </p>
+                            </div>
+                            <div class="create-account">
+                                <p>
+                                    Don't have an account yet ?&nbsp; 
+                                    <a href="javascript:;" id="register-btn" >Create an account</a>
+                                </p>
+                            </div>
+                            <d:script value="reload" binding="#{usersRequest.loginScript}"/>
+                        </h:form>
+                    </aside>
+                    <!-- END LOGIN FORM -->        
+
+
+
+
+
+
+
+
+
+                    <!-- BEGIN FORGOT PASSWORD FORM -->
+                    <aside class="forgot-password-cont" style="display: none">
+                        <h:form prependId="false">
+                            <h:panelGroup id="fpem-block" layout="block" rendered="false">
+                                <h3 >Forget Password ?</h3>
+                                <d:message dismiss="true"></d:message>
+                                <p>Enter your e-mail address below to reset your password.</p>
+                                <d:formGroup icon="icon-envelope">
+                                    <h:inputText id="fpemail" class="form-control" p:placeholder="Email" value="#{usersRequest.email}" validator="regValidator" required="true" requiredMessage="Please enter your registration email"/>
+                                </d:formGroup>
+                                <div class="form-actions">
+                                    <h:commandButton id="back-btn" value="cancel" class="btn"></h:commandButton>
+                                    <h:commandButton id="fpemBtn" value="submit" class="btn green pull-right">
+                                        <f:ajax execute="@form" render="@form" listener="#{usersRequest.forgotPassword}" onevent="fpemevt"/>
+                                    </h:commandButton>      
+                                    <span id="fpLdr" class="ajax-loader pull-right" style="padding: 10px 0px;"><img src="assets/img/loading.gif"/></span>
+                                </div>
+                            </h:panelGroup>
+                            <!--token collection form-->
+                            <h:panelGroup id="fptk-block" layout="block" rendered="true">
+
+                                <h3 >Reset your password</h3>
+                                <d:message dismiss="true"></d:message>
+                                <d:formGroup icon="icon-key">
+                                    <h:inputText id="token" class="form-control" p:placeholder="Token" value="#{usersRequest.token}" required="true" requiredMessage="Token required"/>
+                                </d:formGroup>
+
+                                <d:formGroup icon="icon-lock">
+                                    <h:message id="fppwdmsg" for="password" style="color: #B94A48;" />
+                                    <h:inputSecret id="fppassword" class="form-control" p:placeholder="New Password" value="#{usersRequest.password}" validator="regValidator"  required="true" requiredMessage="Password is required">
+                                        <f:ajax event="change" listener="#{usersRequest.nameChanged}" render="fppwdmsg" onevent="jsfevent"/>
+                                    </h:inputSecret>
+                                </d:formGroup>
+
+                                <d:formGroup icon="icon-ok">
+                                    <h:inputSecret id="fpvpassword" class="form-control" p:placeholder="Retype password" value="#{usersRequest.vpassword}" requiredMessage="Passwords do not match"/>
+                                </d:formGroup>
+
+                                <h:panelGroup layout="block" class="form-actions">
+                                    <!--<h:commandButton id="fpcn-btn" value="cancel" class="btn"></h:commandButton>-->
+                                    <h:commandButton id="fptkBtn" value="submit" class="btn green pull-right">
+                                        <f:ajax execute="@form" render="@form" listener="#{usersRequest.resetPassword}" onevent="fptkevt"/>
+                                    </h:commandButton>      
+                                    <span id="fptkLdr" class="ajax-loader pull-right" style="padding: 10px 0px;"><img src="assets/img/loading.gif"/></span>
+                                </h:panelGroup>
+
+                            </h:panelGroup>
+                        </h:form>
+                    </aside>
+                    <!-- END FORGOT PASSWORD FORM -->
+
+
+
+
+
+
+                    <!-- BEGIN REGISTRATION FORM -->
+                    <aside class="register-cont" style="display: none">
+                        <h:form prependId="false">
+                            <h3 >Sign Up</h3>
+                            <!--Registration Message-->
+                            <d:message binding="#{usersRequest.msg}" dismiss="true"></d:message>
+                            <!--<p>Enter your personal details below:</p>-->
+                            <div class="form-group">
+                                <label class="control-label visible-ie8 visible-ie9">Full Name</label>
+                                <h:message id="scNameMsg" for="screeName" style="color: #B94A48;" />
+                                <div class="input-icon">
+                                    <i class="icon-font"></i>
+                                    <h:inputText id="screeName" class="form-control placeholder-no-fix" p:placeholder="Screen Name" value="#{usersRequest.screenName}" validator="regValidator" required="true" requiredMessage="Must have a screen name">
+                                        <f:ajax event="change" listener="#{usersRequest.nameChanged}" render="scNameMsg screeName" onevent="jsfevent"/>
+                                    </h:inputText>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
+                                <label class="control-label visible-ie8 visible-ie9">Email</label>
+                                <h:message id="emailMsg" for="email" style="color: #B94A48;" />
+                                <div class="input-icon">
+                                    <i class="icon-envelope"></i>
+                                    <h:inputText id="email" class="form-control" p:placeholder="Email" value="#{usersRequest.email}" validator="regValidator" required="true" requiredMessage="Email is required">
+                                        <f:ajax event="change" listener="#{usersRequest.nameChanged}" render="emailMsg email" onevent="jsfevent"/>
+                                    </h:inputText>
+                                </div>
+                            </div>
+
+                            <!--<p>Enter your account details below:</p>-->
+                            <div class="form-group">
+                                <label class="control-label visible-ie8 visible-ie9">Password</label>
+                                <h:message id="passwordMsg" for="password" style="color: #B94A48;" />
+                                <div class="input-icon">
+                                    <i class="icon-lock"></i>
+                                    <h:inputSecret id="password" class="form-control" p:placeholder="Password" validator="regValidator" value="#{usersRequest.password}" required="true" requiredMessage="Password is required">
+                                        <f:ajax event="change" listener="#{usersRequest.nameChanged}" render="passwordMsg" onevent="jsfevent"/>
+                                    </h:inputSecret>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label visible-ie8 visible-ie9">Re-type Your Password</label>
+                                <div class="controls">
+                                    <h:message id="vpasswordMsg" for="vpassword" style="color: #B94A48;" />
+                                    <div class="input-icon">
+                                        <i class="icon-ok"></i>
+                                        <h:inputSecret id="vpassword" class="form-control" p:placeholder="Retype password" value="#{usersRequest.vpassword}" requiredMessage="Passwords do not match">
+                                        </h:inputSecret>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+
+                                <input type="checkbox" name="tnc"/> I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>
+
+                                <div id="register_tnc_error"></div>
+                            </div>
+                            <div class="form-actions">
+                                <button id="register-back-btn" type="button" class="btn"><i class="m-icon-swapleft"></i>  Back</button>
+                                <h:commandButton id="regBtn" class="btn blue pull-right" value="Sign Up">
+                                    <f:ajax  execute="@form" render="@form" listener="#{usersRequest.register}" onevent="registerEvt"/>
+                                </h:commandButton>
+                                <span id="regLdr" class="ajax-loader pull-right" style="padding: 10px 0px;"><img src="assets/img/loading.gif"/></span>
+                            </div>
+                        </h:form>
+                    </aside>
+                    <!-- END REGISTRATION FORM -->
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--END OF LOGIN MODAL BOX-->
+</html>
+

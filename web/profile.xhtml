@@ -1,0 +1,142 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="./template.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:define name="content">
+        <div class="page-container profile" style="padding:20px">
+            <div id="top-profile" class="row" style="margin-bottom: 10px">
+                <div class="col-md-3">
+                    <div><h:graphicImage value="resources/images/femi.jpg" width="180" height="200"/></div>
+                    <h:form enctype="multipart/form-data">
+                        <div>
+                            <h:inputFile value="#{profile.part}" label="picture" required="true" requiredMessage="Select a picture"/>
+                            <h:commandButton class="btn blue" value="change pic" action="#{profile.uploadPic}">
+                            </h:commandButton>
+                        </div>
+                    </h:form>
+                </div>
+                <div class="col-md-9">
+                    <div><h2>John May</h2></div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="dashboard-stat blue">
+                                <div class="visual">
+                                    <!--                                    <i class="icon-comments"></i>-->
+                                </div>
+                                <div class="details">
+                                    <!--<div class="number">1,379</div>-->
+                                    <h:panelGroup layout="block" class="number"><h:outputText value="#{profile.profile.jokes}"/></h:panelGroup>
+                                    <div class="desc">Jokes</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="dashboard-stat blue">
+                                <div class="visual">
+                                    <!--                                    <i class="icon-comments"></i>-->
+                                </div>
+                                <div class="details">
+                                    <h:panelGroup layout="block" class="number"><h:outputText value="#{profile.profile.proverbs}"/></h:panelGroup>
+                                    <div class="desc">Proverbs</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="dashboard-stat blue">
+                                <div class="visual">
+                                    <!--                                    <i class="icon-comments"></i>-->
+                                </div>
+                                <div class="details">
+                                    <h:panelGroup layout="block" class="number"><h:outputText value="#{profile.profile.quotes}"/></h:panelGroup>
+                                    <div class="desc">Quotes</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <!--PROFILE BODY-->
+            <div id="body-profile" class="row">
+                <div id="about_div" class="col-md-4">
+                    <div class="portlet box blue">
+                        <div class="portlet-title">
+                            <div class="caption"><i class="icon-user"></i>About</div>
+                        </div>
+                        <div class="portlet-body profile-bio">
+                            <div class="row ">
+                                <div class="col-md-5">johnny walker</div>
+                            </div>
+                            <div class="row dhover" id="fullname_div">
+                                <div class="col-md-5">John May</div>
+                                <i id="edit_btn" class="right-actions icon-edit dhover-show"></i>
+                            </div>
+                            <div class="row " id="name_edit_div" style="display:none">
+                                <input type="text" class="form-control" placeholder="Firstname"/>
+                                <input type="text" class="form-control" placeholder="Lastname"/>
+                                <button class="btn btn-sm blue">save</button>
+                                <button id="cancel_edit" class="btn btn-sm blue">cancel</button>
+                            </div>
+                            <div class="row ">
+                                <div class="col-md-5">Joined</div>
+                                <div class="right-actions">12 dec 2013</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="jokes_div" class="col-md-6">
+                    <div class="portlet box blue">
+                        <div class="portlet-title">
+                            <div class="caption"><i class="icon-book"></i>Jokes</div>
+                            <div class="tools">
+                                <a href="" class="collapse"></a>
+                                <a href="" class="reload"></a>
+                            </div>
+                        </div>
+                        <div class="portlet-body ">
+                            <div class="dscroll">
+                                <ul id="jokelist" class="list-unstyled ">
+                                    <!--                                    <li>
+                                                                            <div class="post">
+                                                                                <div class="row">
+                                                                                    <span class="col-md-5">April 8, 2014 5:34 am</span>
+                                                                                </div>
+                                                                                <div class="row msg">
+                                                                                    <p>There was a time akpos jokes was all popular</p>
+                                                                                </div>
+                                                                                <div class="row">
+                                                                                    <a href="#" class="nav-link pull-right">Read more <i class="m-icon-swapright"></i></a>
+                                                                                </div>
+                                    
+                                                                            </div>
+                                                                        </li>-->
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- BEGIN CORE PLUGINS -->
+        <script src="assets/plugins/jquery-1.10.2.min.js" type="text/javascript"></script>
+        <script src="assets/plugins/jquery-migrate-1.2.1.min.js" type="text/javascript"></script>   
+        <!-- IMPORTANT! Load jquery-ui-1.10.3.custom.min.js before bootstrap.min.js to fix bootstrap tooltip conflict with jquery ui tooltip -->
+        <script src="assets/plugins/jquery-ui/jquery-ui-1.10.3.custom.min.js" type="text/javascript"></script>
+        <script src="assets/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+        <script src="assets/plugins/bootstrap-hover-dropdown/twitter-bootstrap-hover-dropdown.min.js" type="text/javascript" ></script>
+        <script src="assets/plugins/jquery-slimscroll/jquery.slimscroll.min.js" type="text/javascript"></script>
+        <script src="assets/plugins/jquery.blockui.min.js" type="text/javascript"></script>  
+        <script src="assets/plugins/jquery.cookie.min.js" type="text/javascript"></script>
+        <script src="assets/plugins/uniform/jquery.uniform.min.js" type="text/javascript" ></script>
+        <script src="resources/js/jquery.dubic.effects.js" type="text/javascript"></script>
+        <!-- END CORE PLUGINS -->
+        <script src="assets/scripts/app.js" type="text/javascript"></script>
+        <script src="resources/js/profile.js" type="text/javascript"></script>
+    </ui:define>
+
+</ui:composition>

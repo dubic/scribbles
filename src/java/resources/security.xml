@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  - Sample namespace-based configuration
+  -
+  -->
+
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+    xmlns:beans="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+                        http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.1.xsd">
+
+    <!--<debug />-->
+
+<!--    <global-method-security pre-post-annotations="enabled" />
+
+    <http pattern="/static/**" security="none"/>
+    <http pattern="/loggedout.jsp" security="none"/>-->
+    
+    <global-method-security secured-annotations="enabled"  />
+
+    <http use-expressions="true">
+        <intercept-url pattern="/**/*.css" access="permitAll" />
+        <intercept-url pattern="/**/*.js" access="permitAll" />
+        <intercept-url pattern="/resources/**" access="permitAll" />
+        <intercept-url pattern="/rest/charts/validate" access="permitAll" />
+        
+        <intercept-url pattern="/home.jsf" access="permitAll" />
+<!--        <intercept-url pattern="/configure.jsp" access="permitAll" />
+        <intercept-url pattern="/register.jsp" access="permitAll" />
+        <intercept-url pattern="/register-user.jsp" access="permitAll" />-->
+        <!--<intercept-url pattern="/reports/**" access="permitAll" />-->
+        <!--page level security-->
+<!--        <intercept-url pattern="/sales/dealer_analysis.jsp" access="hasAnyRole('APP_ADMIN','SUPER_ADMIN','TRANSACTION_ADMIN')" />
+        <intercept-url pattern="/transaction/transactions.jsp" access="hasAnyRole('APP_ADMIN','SUPER_ADMIN','TRANSACTION_ADMIN')" />
+        <intercept-url pattern="/transaction/term-transactions.jsp" access="hasAnyRole('APP_ADMIN','SUPER_ADMIN','TRANSACTION_ADMIN')" />
+        
+        <intercept-url pattern="/players/player-admin.jsp" access="hasAnyRole('APP_ADMIN','SUPER_ADMIN','GAMEPLAY_ADMIN')" />
+        <intercept-url pattern="/players/player-account.jsp" access="hasAnyRole('APP_ADMIN','SUPER_ADMIN','GAMEPLAY_ADMIN')" />
+        <intercept-url pattern="/players/player-winnings.jsp" access="hasAnyRole('APP_ADMIN','SUPER_ADMIN','GAMEPLAY_ADMIN')" />
+        <intercept-url pattern="/players/player-game.jsp" access="hasAnyRole('APP_ADMIN','SUPER_ADMIN','GAMEPLAY_ADMIN')" />
+        <intercept-url pattern="/players/game-stats.jsp" access="hasAnyRole('APP_ADMIN','SUPER_ADMIN','GAMEPLAY_ADMIN')" />
+        <intercept-url pattern="/players/game-stats.jsp" access="hasAnyRole('APP_ADMIN','SUPER_ADMIN','GAMEPLAY_ADMIN')" />
+        
+        <intercept-url pattern="/winning/winning.jsp" access="hasAnyRole('APP_ADMIN','SUPER_ADMIN','FINANCIAL_ADMIN')" />
+        <intercept-url pattern="/cashBalance/bank_setup.jsp" access="hasAnyRole('APP_ADMIN','SUPER_ADMIN','FINANCIAL_ADMIN')" />
+        <intercept-url pattern="/cashBalance/bank_setup.jsp" access="hasAnyRole('APP_ADMIN','SUPER_ADMIN','FINANCIAL_ADMIN')" />
+        <intercept-url pattern="/cashBalance/payCash.jsp" access="hasAnyRole('APP_ADMIN','SUPER_ADMIN','FINANCIAL_ADMIN')" />
+        <intercept-url pattern="/cashBalance/payCheque.jsp" access="hasAnyRole('APP_ADMIN','SUPER_ADMIN','FINANCIAL_ADMIN')" />-->
+        <!--end page level security-->
+        <!--<intercept-url pattern="/**" access="isAuthenticated()" />-->
+        <!--<intercept-url pattern="/**" access="permitAll" />-->
+        <form-login login-page="/home.jsf" login-processing-url="/login" 
+                    authentication-failure-handler-ref="authFailure" authentication-success-handler-ref="authSuccess" username-parameter="lemail" password-parameter="lpassword"/>
+        <logout logout-url="/logout" logout-success-url="/login.jsp" delete-cookies="JSESSIONID"/>
+        <session-management>
+            <concurrency-control max-sessions="1"/>
+        </session-management>
+        <!--<remember-me />-->
+<!--
+    Uncomment to enable X509 client authentication support
+        <x509 />
+-->
+      
+    </http>
+
+    
+<!--    <beans:bean id="encoder" class="org.springframework.security.crypto.password.StandardPasswordEncoder"/>-->
+    <beans:bean id="customAuthenticationProvider" class="com.dubic.scribbles.idm.auth.AdminAuthenticationProvider"/>
+    <beans:bean id="userDetailsService" class="com.dubic.scribbles.idm.auth.CustomUserDetailsService"/>
+    <beans:bean id="authFailure" class="com.dubic.scribbles.idm.auth.AdminAuthFailureHandler"/>
+    <beans:bean id="authSuccess" class="com.dubic.scribbles.idm.auth.AdminAuthSuccessHandler"/>
+
+    <authentication-manager alias="authManager">
+        <authentication-provider ref="customAuthenticationProvider">
+            <!--<password-encoder ref="encoder"/>-->
+            
+        </authentication-provider>
+    </authentication-manager>
+
+</beans:beans>

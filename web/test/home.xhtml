@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <title>Home test</title>
+        <ui:include src="head.html"/>
+    </h:head>
+    <h:body class="page-header-fixed">
+        <ui:include src="header.html"/>
+        <div class="page-container">
+            <div class="middle-page">
+                <div class="row">
+                    <ul class="horizontal post-links" style="margin: auto;display: table">
+                        <li><a href="#" class="active">Jokes</a></li>
+                        <li><a href="#">Quotes</a></li>
+                        <li><a href="#">Proverbs</a></li>
+                    </ul>
+                </div>
+
+                <section class="container row">
+                    <div style="width: 50%;margin: auto">   
+                        <input placeholder="Search..." class="form-control" style="width: 70%;display: inline" type="text"/>
+                        <span><button type="button" class="btn green">  Search &nbsp;   <i class="m-icon-swapright m-icon-white"></i></button></span>    
+                    </div>
+                </section>
+
+                <section class="container row">
+                    <div style="width: 50%;margin: auto">   
+                        <div class="row"><textarea id="comment-txt" style="width: 100%" placeholder="post a joke"></textarea></div>
+                        <div class="pull-right"><button class="btn blue">post</button></div>
+                    </div>
+                </section>
+
+                <section class="container">
+                    <ui:include src="post.html"/>
+                </section>
+            </div>
+        </div>
+    </h:body>
+</html>
+
