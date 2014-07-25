@@ -77,7 +77,7 @@ function createJoke(post) {
     var commentBlock = $('<div class="row comment"></div>')
             .append($('<div class="col-md-1"></div>')
                     .append($('<img class="poster-img" width="40" height="40"/>').attr('src', '/scribbles/test/img/femi.jpg')))
-            .append($('<div class="col-md-10"></div>')
+            .append($('<div class="col-md-9"></div>')
                     .append($('<div class="row"></div>')
                             .append($('<a class="person"></a>').attr('href', 'profile.jsp').text('Chinwe Collette'))
                             .append($('<span class="date-grey" style="margin:0px 10px"></span>').text('2 hrs 3 mins ago')))

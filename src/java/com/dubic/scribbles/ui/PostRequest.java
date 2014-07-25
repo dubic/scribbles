@@ -12,7 +12,10 @@ import java.util.logging.Level;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.faces.component.UIComponent;
+import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
+import javax.faces.event.PostAddToViewEvent;
 import javax.persistence.PersistenceException;
 import javax.validation.ConstraintViolationException;
 import org.apache.log4j.Logger;
@@ -25,7 +28,7 @@ import org.springframework.web.jsf.FacesContextUtils;
  */
 @ManagedBean
 @RequestScoped
-public class PostRequest {
+public class PostRequest extends AbstractManagedBean{
 
     private final Logger log = Logger.getLogger(getClass());
     private String postedMsg;
@@ -60,7 +63,7 @@ public class PostRequest {
 
     @PostConstruct
     public void created() {
-
+        
     }
 
     public void postJoke() {
@@ -96,4 +99,10 @@ public class PostRequest {
         log.debug(String.format("share(%s)", postedMsg));
     }
 
+    public void testLoad(PostAddToViewEvent evt){
+        postedMsg = "on load ajax works";
+        log.debug("test load called");
+        UIInput ta = (UIInput) evt.getComponent();
+        ta.setValue("ok make me feel good");
+    }
 }

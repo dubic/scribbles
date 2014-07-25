@@ -123,15 +123,6 @@ public class Joke extends Post implements Serializable {
         this.blocked = blocked;
     }
 
-    @Column(name = "num_reads")
-    public int getReads() {
-        return reads;
-    }
-
-    public void setReads(int reads) {
-        this.reads = reads;
-    }
-
     @Column(name = "likes")
     public int getLikes() {
         return likes;

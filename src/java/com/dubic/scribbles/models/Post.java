@@ -23,7 +23,6 @@ public abstract class Post {
     protected Calendar postedDate = Calendar.getInstance();
     protected Date postedTime = new Date();
     protected boolean blocked;
-    protected int reads = 0;
     protected int likes = 0;
     protected int dislikes = 0;
     protected Date editedDate = new Date();

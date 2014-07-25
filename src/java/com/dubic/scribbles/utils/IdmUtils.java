@@ -25,6 +25,7 @@ import javax.validation.ConstraintViolationException;
 import javax.validation.Validation;
 import javax.validation.Validator;
 import org.apache.log4j.Logger;
+import org.ocpsoft.prettytime.PrettyTime;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -37,6 +38,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
  * @since idm 1.0.0
  */
 public class IdmUtils {
+
+    private static int ap = 0;
 
     public static void tokenize(String pathInfo, String delim) {
         StringTokenizer t = new StringTokenizer(pathInfo, delim);
@@ -60,15 +63,14 @@ public class IdmUtils {
         charrList.add(new char[]{'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T'});
         charrList.add(new char[]{'U', 'V', 'W', 'X', 'Y', 'Z', '0', '1', '2', '3'});
         charrList.add(new char[]{'4', '5', '6', '7', '8', '9'});
-        int ap = new Random().nextInt(charrList.size());
+
         StringBuffer tokenBuf = new StringBuffer();
         for (int i = 0; i < time.length; i++) {
             ap = ap >= charrList.size() ? 0 : ap;
             int chPos = Character.digit(time[i], Character.MAX_RADIX);
-            if(chPos >= charrList.get(ap).length){
+            if (chPos >= charrList.get(ap).length) {
                 tokenBuf.append(chPos);
-            }
-            else{
+            } else {
                 tokenBuf.append(charrList.get(ap)[chPos]);
             }
             ap++;
@@ -191,18 +193,34 @@ public class IdmUtils {
             throw new ConstraintViolationException("Failed to validate Object of class " + t.getClass().getName(), results);
         }
     }
+    
+    public String prettyTime(Date posted){
+        PrettyTime pt = new PrettyTime(new Date());
+        return pt.format(posted);
+    }
 
     public static void main(String[] arrrgh) {
-        try {
-            System.out.println("token - "+generateTimeToken());
-            Thread.sleep(1000);
-            System.out.println("token - "+generateTimeToken());
-            Thread.sleep(1000);
-            System.out.println("token - "+generateTimeToken());
-            Thread.sleep(1000);
-            System.out.println("token - "+generateTimeToken());
-        } catch (InterruptedException ex) {
-            java.util.logging.Logger.getLogger(IdmUtils.class.getName()).log(Level.SEVERE, null, ex);
-        }
+//        try {
+//            System.out.println("token - " + generateTimeToken());
+//            Thread.sleep(1000);
+//            System.out.println("token - " + generateTimeToken());
+//            Thread.sleep(1000);
+//            System.out.println("token - " + generateTimeToken());
+//            Thread.sleep(1000);
+//            System.out.println("token - " + generateTimeToken());
+//        } catch (InterruptedException ex) {
+//            java.util.logging.Logger.getLogger(IdmUtils.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+        PrettyTime pt = new PrettyTime(new Date());
+        
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.SECOND, -47);
+        System.out.println(pt.format(cal));
+        cal.add(Calendar.MINUTE, -4);
+        System.out.println(pt.format(cal));
+        cal.add(Calendar.HOUR_OF_DAY, -5);
+        System.out.println(pt.format(cal));
+        cal.add(Calendar.MONTH, -2);
+        System.out.println(pt.format(cal));
     }
 }

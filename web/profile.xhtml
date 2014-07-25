@@ -9,7 +9,7 @@
         <div class="page-container profile" style="padding:20px">
             <div id="top-profile" class="row" style="margin-bottom: 10px">
                 <div class="col-md-3">
-                    <div><h:graphicImage value="resources/images/femi.jpg" width="180" height="200"/></div>
+                    <div><h:graphicImage value="p/#{profile.profile.picture}" width="180" height="200"/></div>
                     <h:form enctype="multipart/form-data">
                         <div>
                             <h:inputFile value="#{profile.part}" label="picture" required="true" requiredMessage="Select a picture"/>

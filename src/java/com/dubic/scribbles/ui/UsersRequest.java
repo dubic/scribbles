@@ -16,6 +16,7 @@ import com.dubic.scribbles.idm.spi.LinkExpiredException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.logging.Level;
+import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
@@ -44,7 +45,7 @@ import org.springframework.security.core.AuthenticationException;
  */
 @ManagedBean
 @RequestScoped
-public class UsersRequest extends AbstractManagedBean{
+public class UsersRequest extends AbstractManagedBean {
 
     private final Logger log = Logger.getLogger(getClass());
 
@@ -62,11 +63,17 @@ public class UsersRequest extends AbstractManagedBean{
     private AuthenticationManager authenticationManager = null;
     @ManagedProperty(value = "#{userSession}")
     private UserSession session = null;
-    
+    private User user;
 
     //<editor-fold defaultstate="collapsed" desc="getter setters">
-    
-    
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
     public boolean isPwordTokenGenerated() {
         return pwordTokenGenerated;
     }
@@ -74,7 +81,7 @@ public class UsersRequest extends AbstractManagedBean{
     public void setPwordTokenGenerated(boolean pwordTokenGenerated) {
         this.pwordTokenGenerated = pwordTokenGenerated;
     }
-    
+
     public String getToken() {
         return token;
     }
@@ -82,7 +89,7 @@ public class UsersRequest extends AbstractManagedBean{
     public void setToken(String token) {
         this.token = token;
     }
-    
+
     public UserSession getSession() {
         return session;
     }
@@ -90,7 +97,7 @@ public class UsersRequest extends AbstractManagedBean{
     public void setSession(UserSession session) {
         this.session = session;
     }
-    
+
     public Script getLoginScript() {
         return loginScript;
     }
@@ -106,8 +113,6 @@ public class UsersRequest extends AbstractManagedBean{
     public void setIdentityService(IdentityService identityService) {
         this.identityService = identityService;
     }
-    
-    
 
     public String getScreenName() {
         return screenName;
@@ -163,6 +168,11 @@ public class UsersRequest extends AbstractManagedBean{
      */
     public UsersRequest() {
 
+    }
+
+    @PostConstruct
+    public void start() {
+        this.user = identityService.getUserLoggedIn();
     }
 
     public void register() {
@@ -247,6 +257,7 @@ public class UsersRequest extends AbstractManagedBean{
             log.fatal(e.getMessage(), e);
         }
     }
+
     public void resetPassword() {
         log.debug("reset password");
         FacesContext fc = FacesContext.getCurrentInstance();
@@ -270,7 +281,5 @@ public class UsersRequest extends AbstractManagedBean{
         log.debug("new value - " + ((UIInput) evt.getComponent()).getValue());
 //        log.debug("password value - "+password);
     }
-    
-   
 
 }

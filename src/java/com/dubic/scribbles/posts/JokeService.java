@@ -39,6 +39,7 @@ public class JokeService implements PostService {
     @Inject
     private ProfileService ps;
     private boolean blockcreate = false;
+    
 
     public boolean isBlockcreate() {
         return blockcreate;

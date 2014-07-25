@@ -28,6 +28,7 @@ function jsfevent(evt) {
         console.log("event == complete");
         $('#'+evt.source.id).removeClass("spinner");
     }
+    
 
 }
 function registerEvt(evt) {

@@ -11,6 +11,7 @@ import com.dubic.scribbles.models.Profile;
 import com.dubic.scribbles.utils.IdmUtils;
 import java.util.Date;
 import java.util.List;
+import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.PersistenceException;
 import org.apache.log4j.Logger;
@@ -19,11 +20,11 @@ import org.apache.log4j.Logger;
  *
  * @author dubem
  */
-@Named
+@Named(value = "profileService")
 public class ProfileServiceBean implements ProfileService {
 
     private final Logger log = Logger.getLogger(getClass());
-    private Database db;
+    @Inject private Database db;
 //    private String pixpath;
 
     @Override

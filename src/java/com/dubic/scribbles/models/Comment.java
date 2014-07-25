@@ -6,15 +6,17 @@
 package com.dubic.scribbles.models;
 
 import java.io.Serializable;
+import java.util.Calendar;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
+import javax.persistence.Temporal;
 import org.hibernate.validator.constraints.NotEmpty;
 
 /**
@@ -26,8 +28,8 @@ import org.hibernate.validator.constraints.NotEmpty;
 public class Comment implements Serializable {
 
     private Long id;
-    private String post;
-    private long postedTime;
+    private String text;
+    private Calendar postedTime = Calendar.getInstance();
     private Joke joke;
 
     public Comment() {
@@ -44,27 +46,29 @@ public class Comment implements Serializable {
         this.id = id;
     }
 
-    @NotEmpty(message = "Post must not be a null value")
+    @NotEmpty(message = "comment must not be a null value")
     @Lob
-    @Column(name = "post", nullable = false)
-    public String getPost() {
-        return post;
+    @Column(name = "text", nullable = false)
+    public String getText() {
+        return text;
     }
 
-    public void setPost(String post) {
-        this.post = post;
+    public void setText(String text) {
+        this.text = text;
     }
 
     @Column(name = "posted")
-    public long getPostedTime() {
+    @Temporal(javax.persistence.TemporalType.TIMESTAMP)
+    public Calendar getPostedTime() {
         return postedTime;
     }
 
-    public void setPostedTime(long postedTime) {
+    public void setPostedTime(Calendar postedTime) {
         this.postedTime = postedTime;
     }
 
     @ManyToOne
+    @JoinColumn(name = "joke_id")
     public Joke getJoke() {
         return joke;
     }

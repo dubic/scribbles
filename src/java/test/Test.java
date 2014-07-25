@@ -23,7 +23,7 @@ import org.apache.catalina.tribes.util.ExecutorFactory;
 public class Test {
     public static void main(String[] jhdd){
         Comment joke = new Comment();
-        joke.setPost("");
+        joke.setText("");
         ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
         Set<ConstraintViolation<Comment>> results = factory.getValidator().validate(joke);
         for (ConstraintViolation<Comment> constraintViolation : results) {

@@ -30,6 +30,8 @@ public interface ProfileService {
      */
     public Profile loadProfile(User user);
     
+    
+    
     /**updates a users profile in the db and returns it
      *
      * @param profile

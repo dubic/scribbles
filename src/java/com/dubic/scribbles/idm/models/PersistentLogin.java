@@ -39,7 +39,6 @@ public class PersistentLogin implements Serializable {
 
     @Column(name = "series", length = 64)
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public String getSeries() {
         return series;
     }

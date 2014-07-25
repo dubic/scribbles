@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.dubic.scribbles.ui;
+package com.dubic.scribbles.ui.validators;
 
 import com.dubic.scribbles.idm.spi.IdentityServiceImpl;
 import com.dubic.scribbles.ui.validators.EmailValidator;

@@ -27,8 +27,10 @@ xmlns:d="http://xmlns.jcp.org/jsf/component"
 
                 <section class="container row" style="background: #DDD">
                     <div style="width: 50%;margin: auto">   
-                        <h:form>
-                            <div class="row"><h:inputTextarea id="comment-txt" value="#{postRequest.postedMsg}" p:placeholder="what's so funny" style="width: 100%" ></h:inputTextarea></div>
+                        <h:form prependId="false">
+                            <div class="row"><h:inputTextarea id="comment-txt" value="#{postRequest.postedMsg}" p:placeholder="what's so funny" style="width: 100%" >
+                                    <f:event type="postAddToView" listener="#{postRequest.testLoad}"/>
+                                </h:inputTextarea></div>
                             <div class="pull-right">
                                 <h:commandButton class="btn blue" value="post">
                                     <f:ajax  execute="@form" render="@form" listener="#{postRequest.postJoke}"/>
