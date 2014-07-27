@@ -158,4 +158,9 @@ public class JokeService implements PostService {
         }
     }
 
+    public List<Joke> getLatestPosts(int start, int amount) {
+        return db.createQuery("SELECT j FROM Joke j WHERE j.blocked != TRUE ORDER BY j.editedDate DESC", Joke.class)
+                .setFirstResult(start).setMaxResults(amount).getResultList();
+    }
+
 }

@@ -5,6 +5,7 @@
  */
 package com.dubic.scribbles.models;
 
+import com.dubic.scribbles.idm.models.User;
 import java.io.Serializable;
 import java.util.Calendar;
 import javax.persistence.Column;
@@ -15,8 +16,10 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
+import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.NotEmpty;
 
 /**
@@ -24,15 +27,16 @@ import org.hibernate.validator.constraints.NotEmpty;
  * @author dubem
  */
 @Entity
-@Table(name = "comment")
-public class Comment implements Serializable {
+@Table(name = "jk_comment")
+public class JKComment implements Serializable {
 
     private Long id;
     private String text;
     private Calendar postedTime = Calendar.getInstance();
     private Joke joke;
+    private User user;
 
-    public Comment() {
+    public JKComment() {
     }
 
     @Id
@@ -67,14 +71,26 @@ public class Comment implements Serializable {
         this.postedTime = postedTime;
     }
 
+    @NotNull(message = "this comment is not assigned to a joke")
     @ManyToOne
-    @JoinColumn(name = "joke_id")
+    @JoinColumn(name = "joke_id",nullable = false)
     public Joke getJoke() {
         return joke;
     }
 
     public void setJoke(Joke joke) {
         this.joke = joke;
+    }
+
+    @NotNull(message = "this comment is not assigned to a user")
+    @JoinColumn(name = "user_id", nullable = false)
+    @OneToOne
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
 }

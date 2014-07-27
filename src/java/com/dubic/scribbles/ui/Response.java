@@ -6,7 +6,7 @@
 
 package com.dubic.scribbles.ui;
 
-import com.dubic.scribbles.models.Comment;
+import com.dubic.scribbles.models.JKComment;
 import java.util.Set;
 import javax.validation.ConstraintViolation;
 
@@ -16,7 +16,7 @@ import javax.validation.ConstraintViolation;
  */
 public class Response {
     private Object data;
-    private Set<ConstraintViolation<Comment>> constraintViolations;
+    private Set<ConstraintViolation<JKComment>> constraintViolations;
 
     public Object getData() {
         return data;
@@ -26,11 +26,11 @@ public class Response {
         this.data = data;
     }
 
-    public Set<ConstraintViolation<Comment>> getConstraintViolations() {
+    public Set<ConstraintViolation<JKComment>> getConstraintViolations() {
         return constraintViolations;
     }
 
-    public void setConstraintViolations(Set<ConstraintViolation<Comment>> constraintViolations) {
+    public void setConstraintViolations(Set<ConstraintViolation<JKComment>> constraintViolations) {
         this.constraintViolations = constraintViolations;
     }
     

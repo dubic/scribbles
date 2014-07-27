@@ -6,27 +6,22 @@
 
 package com.dubic.scribbles.servlets;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.StringTokenizer;
-import javax.imageio.ImageIO;
 import javax.servlet.ServletException;
-import javax.servlet.ServletOutputStream;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.apache.commons.io.IOUtils;
-import org.apache.log4j.Logger;
 
 /**
  *
  * @author dubem
  */
-@WebServlet(name = "Picture", urlPatterns = {"/p/*"})
-public class Picture extends HttpServlet {
-private final Logger log = Logger.getLogger(getClass());
+@WebServlet(name = "ProfileServlet", urlPatterns = {"/user/*"})
+public class ProfileServlet extends HttpServlet {
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -37,22 +32,13 @@ private final Logger log = Logger.getLogger(getClass());
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.setContentType("image/jpeg");
-        ServletOutputStream responseStream = response.getOutputStream();
-        String pathInfo = request.getPathInfo();
+        response.setContentType("text/html;charset=UTF-8");
+        PrintWriter out = response.getWriter();
+       String pathInfo = request.getPathInfo();
         StringTokenizer t = new StringTokenizer(pathInfo, "/");
-        String picId = nextPath(t);
-        try {
-            if (picId != null) {
-                IOUtils.copy(new FileInputStream("C:/temp/" + picId), responseStream);
-            } else {
-                //send avatar
-                IOUtils.copy(new FileInputStream("C:/temp/male.jpg"), responseStream);
-            }
-        } catch (Exception e) {
-            log.warn(e.getMessage(),e);
-        }
-       responseStream.close();
+        String profileName = t.nextToken();
+        request.getRequestDispatcher("profile.jsf?name="+profileName).forward(request, response);
+        return;
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -93,12 +79,5 @@ private final Logger log = Logger.getLogger(getClass());
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-
-    private String nextPath(StringTokenizer t) {
-        if(t.hasMoreTokens()){
-            return t.nextToken();
-        }
-        return null;
-    }
 
 }

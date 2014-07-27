@@ -6,7 +6,7 @@ package com.dubic.scribbles.utils;
 
 import com.dubic.scribbles.idm.models.Role;
 import com.dubic.scribbles.idm.models.User;
-import com.dubic.scribbles.models.Comment;
+import com.dubic.scribbles.models.JKComment;
 import com.dubic.scribbles.models.Joke;
 import java.text.DecimalFormat;
 import java.text.ParseException;

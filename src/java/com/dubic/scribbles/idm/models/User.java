@@ -48,6 +48,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 @NamedQueries({
     @NamedQuery(name = "user.find.mail.password", query = "SELECT u FROM User u WHERE u.password = :pwd and u.email = :email"),
     @NamedQuery(name = "user.findmail.email", query = "SELECT u.email FROM User u WHERE u.email = :email"),
+    @NamedQuery(name = "user.find.screenName", query = "SELECT u FROM User u WHERE u.screenName = :screenName"),
     @NamedQuery(name = "user.findscreename.scname", query = "SELECT u.screenName FROM User u WHERE u.screenName = :scname"),
     @NamedQuery(name = "user.find.id.mail", query = "SELECT u FROM User u WHERE u.email = :email and u.id = :id"),
     @NamedQuery(name = "user.find.mail", query = "SELECT u FROM User u WHERE u.email = :email")})

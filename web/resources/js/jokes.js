@@ -5,28 +5,14 @@
  */
 $(function() {
     App.blockUI(".middle-page");
-    $.getJSON("/scribbles/testapi/jokes", function(posts) {
+    $.getJSON("/scribbles/posts/jokes/0/10", function(posts) {
         for (var i = 0; i < posts.length; i++) {
             var post = createJoke(posts[i]);
             $('#post-list').append(post);
         }
         App.unblockUI(".middle-page");
         ///////////////POST CREATION EVENTS////////////////////////////////////////
-        $(".dpopover .icon-remove").click(function(evt) {
-            $(this).closest(".dpopover").fadeOut(300);
-        });
-        $(".report-submit").click(function() {
-            var boxes = $(this).parent().find(".checker .checked");
-            boxes.each(function() {
-                console.log($(this).closest('li').text());
-//              alert($(this).find('input[type="checkbox"]').text()); 
-            });
-        });
-        $("select, input:checkbox, input:radio, input:file").uniform();
-        $("#post-list .report-action").click(function(evt) {
-            $(this).siblings(".dpopover").fadeToggle(300);
-            evt.preventDefault();
-        });
+        registerJokeEvents();
     });
 });
 
@@ -34,12 +20,11 @@ function createJoke(post) {
     var postContainer = $('<section class="post-container"></section>')
             .append($('<div class="row"></div>')
                     .append($('<div class="col-md-1"></div>')
-                            .append($('<img class="poster-img" width="60" height="60"/>').attr('src', 'assets/img/avatar1.jpg')))
+                            .append($('<img class="poster-img" width="60" height="60"/>').attr('src', post.imageURL)))
                     .append($('<div  class="col-md-10"></div>')
-                            .append($('<div class="row"></div>').append($('<a class="person"></a>').attr('href', 'profile.jsp').text(post.poster)))
-                            .append($('<div class="row"></div>').append($('<span class="date-grey"></span>').text('3 hrs ago')))
+                            .append($('<div class="row"></div>').append($('<a class="person"></a>').attr('href', 'profile.jsf?name='+post.poster).text(post.poster)))
+                            .append($('<div class="row"></div>').append($('<span class="date-grey"></span>').text(post.duration)))
                             .append($('<div class="row stats"></div>')
-                                    .append($('<i class="icon-eye-open"></i>')).append($('<span></span>').text('23,675'))
                                     .append($('<i class="icon-thumbs-up"></i>')).append($('<span class="likes"></span>').text(post.likes))
                                     .append($('<i class="icon-thumbs-down"></i>')).append($('<span class="dislikes"></span>').text(post.dislikes))
                                     .append($('<i class="icon-comments"></i>')).append($('<span></span>').text(post.comments.length))
@@ -72,18 +57,13 @@ function createJoke(post) {
     var hideCommLink = $('<span class="pull-right" style="position: relative"></span>').append($('<a href="#">show comments</a>').click(function(evt) {
         hideComments(evt, $(this));
     }));
-    ////////////////////////////////////////
+    //////////////////APPEND COMMENTS//////////////////////
     var commentsBody = $('<div class="comments-body"></div>');
-    var commentBlock = $('<div class="row comment"></div>')
-            .append($('<div class="col-md-1"></div>')
-                    .append($('<img class="poster-img" width="40" height="40"/>').attr('src', '/scribbles/test/img/femi.jpg')))
-            .append($('<div class="col-md-9"></div>')
-                    .append($('<div class="row"></div>')
-                            .append($('<a class="person"></a>').attr('href', 'profile.jsp').text('Chinwe Collette'))
-                            .append($('<span class="date-grey" style="margin:0px 10px"></span>').text('2 hrs 3 mins ago')))
-                    .append($('<div class="row"></div>').append($('<p></p>').text('code optimization is still going on. Most of the pages'))));
+    $.each(post.comments, function() {
+        commentsBody.append(getCommentBlock(this));
+    });
 
-    postContainer.append($('<div class="row comments"></div>').append(hideCommLink).append(commentsBody.append(commentBlock)));
+    postContainer.append($('<div class="row comments"></div>').append(hideCommLink).append(commentsBody));
     ///////////////MY COMMENT//////////////////////////////
 
     var postCommentBtn = $('<button class="btn blue" onclick="postComment($(this),' + post.id + ')">comment</button>');
@@ -96,6 +76,24 @@ function createJoke(post) {
     postContainer.append(myComment);
 
     return postContainer;
+}
+
+function registerJokeEvents(){
+    $(".dpopover .icon-remove").click(function(evt) {
+            $(this).closest(".dpopover").fadeOut(300);
+        });
+        $(".report-submit").click(function() {
+            var boxes = $(this).parent().find(".checker .checked");
+            boxes.each(function() {
+                console.log($(this).closest('li').text());
+//              alert($(this).find('input[type="checkbox"]').text()); 
+            });
+        });
+        $("select, input:checkbox, input:radio, input:file").uniform();
+        $("#post-list .report-action").click(function(evt) {
+            $(this).siblings(".dpopover").fadeToggle(300);
+            evt.preventDefault();
+        });
 }
 
 function openShareOptions(evt, source) {
@@ -123,25 +121,30 @@ function postComment(source, postId) {
     var loader = source.closest('.my-comment').find('.ajax-loader');
     Deffects.transitionFade(source, loader, 0);
     var comment = source.closest('.my-comment').find('textarea').val();
-    alert("post id = " + postId + ", comment = " + comment);
+//    alert("post id = " + postId + ", comment = " + comment);
+    if (comment === null || comment === "") {
+        return;
+    }
     Deffects.transitionFade(loader, source, 500);
+    //save comment to db
+    
     source.closest(".post-container").find(".comments-body").append(getCommentBlock(comment));
-
 }
 ///////////////////TEST FUNCTION//////////////////
-function getCommentBlock(text) {
+function getCommentBlock(comment) {
     var cblock = $('<div class="row comment"></div>')
             .append($('<div class="col-md-1"></div>')
-                    .append($('<img class="poster-img" width="40" height="40"/>').attr('src', '/scribbles/test/img/femi.jpg')))
-            .append($('<div class="col-md-10"></div>')
+                    .append($('<img class="poster-img" width="40" height="40"/>').attr('src', comment.imageURL)))
+            .append($('<div class="col-md-9"></div>')
                     .append($('<div class="row"></div>')
-                            .append($('<a class="person"></a>').attr('href', 'profile.jsp').text('Chinwe Collette'))
-                            .append($('<span class="date-grey" style="margin:0px 10px"></span>').text('2 hrs 3 mins ago')))
-                    .append($('<div class="row"></div>').append($('<p></p>').text(text))));
+                            .append($('<a class="person"></a>').attr('href', 'profile.jsp').text(comment.poster))
+                            .append($('<span class="date-grey" style="margin:0px 10px"></span>').text(comment.duration)))
+                    .append($('<div class="row"></div>').append($('<p></p>').text(comment.post))));
     return cblock;
 }
 //////////////////CALLBACK FOR POSTED JOKE///////////////////////////////
 function updatePosted(post) {
     $('#post-list').prepend(createJoke(post));
+    registerJokeEvents();
 }
 

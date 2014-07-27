@@ -5,6 +5,7 @@
  */
 package com.dubic.scribbles.ui;
 
+import com.dubic.scribbles.idm.models.User;
 import com.dubic.scribbles.idm.spi.IdentityService;
 import com.dubic.scribbles.models.Profile;
 import com.dubic.scribbles.profile.ProfileService;
@@ -15,15 +16,20 @@ import java.awt.image.BufferedImage;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Date;
+import java.util.logging.Level;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
 import javax.imageio.ImageIO;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 import org.apache.commons.io.IOUtils;
 import org.apache.log4j.Logger;
+import org.springframework.web.jsf.FacesContextUtils;
 
 /**
  *
@@ -40,10 +46,18 @@ public class ProfileRequest {
     private IdentityService identityService;
     @ManagedProperty("#{profileService}")
     private ProfileService profileService;
-    private Profile profile;
+    private User user;
+    private String profileName;
 
     //<editor-fold defaultstate="collapsed" desc="getter setters">
-    
+    public String getProfileName() {
+        return profileName;
+    }
+
+    public void setProfileName(String profileName) {
+        this.profileName = profileName;
+    }
+
     public ProfileService getProfileService() {
         return profileService;
     }
@@ -51,7 +65,7 @@ public class ProfileRequest {
     public void setProfileService(ProfileService profileService) {
         this.profileService = profileService;
     }
-    
+
     public Part getPart() {
         return part;
     }
@@ -68,12 +82,12 @@ public class ProfileRequest {
         this.identityService = identityService;
     }
 
-    public Profile getProfile() {
-        return profile;
+    public User getUser() {
+        return user;
     }
 
-    public void setProfile(Profile profile) {
-        this.profile = profile;
+    public void setUser(User user) {
+        this.user = user;
     }
 
 //</editor-fold>
@@ -81,31 +95,47 @@ public class ProfileRequest {
      * Creates a new instance of ProfileRequest
      */
     public ProfileRequest() {
+        ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+        HttpServletRequest request = (HttpServletRequest) externalContext.getRequest();
+        HttpServletResponse response = (HttpServletResponse) externalContext.getResponse();
+        String name = request.getParameter("name");
+
+        log.debug("pname = " + name);
+        if (name == null) {
+            try {
+                response.sendRedirect("home.jsf");
+//                FacesContext.getCurrentInstance().responseComplete();
+            } catch (IOException ex) {
+                log.fatal(ex.getMessage());
+            }
+        } else {
+            //load profile by screen name
+            identityService = (IdentityService) FacesContextUtils.getRequiredWebApplicationContext(FacesContext.getCurrentInstance()).getBean("identityService");
+            this.user = identityService.findUserByScreenName(name);
+        }
+
     }
 
     @PostConstruct
     public void loadUser() {
-        this.profile = identityService.getUserLoggedIn().getProfile();
+        log.debug("profile name passed = " + profileName);
     }
 
     public void uploadPic() throws IOException {
         log.debug("uploadPic...");
-        log.debug("name - " + part.getName());
-        log.debug("header filename - " + getFileName(part));
-        log.debug("size - " + part.getSize());
+        
         // Copy uploaded file to destination path
         InputStream inputStream = part.getInputStream();
-        String pixName = IdmCrypt.encodeMD5(profile.getId()+"", "pix");
+        String pixName = IdmCrypt.encodeMD5(this.user.getProfile().getId() + "", "pix");
         FileOutputStream fileOutputStream = new FileOutputStream("C:\\temp\\" + pixName);
-        
 
         BufferedImage image = ImageIO.read(inputStream);
         Image scaledImage = image.getScaledInstance(180, 200, Image.SCALE_DEFAULT);
         ImageIO.write(toBufferedImage(scaledImage), "jpg", fileOutputStream);
         IOUtils.closeQuietly(fileOutputStream);
-        this.profile.setPicture(pixName);
-        profileService.updateProfile(profile);
-                
+        this.user.getProfile().setPicture(pixName);
+        profileService.updateProfile(this.user.getProfile());
+
     }
 
     private String getFileName(Part part) {
@@ -119,7 +149,7 @@ public class ProfileRequest {
         }
         return null;
     }
-    
+
     private BufferedImage toBufferedImage(Image src) {
         int w = src.getWidth(null);
         int h = src.getHeight(null);

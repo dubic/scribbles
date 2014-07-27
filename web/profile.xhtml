@@ -4,12 +4,15 @@
                 template="./template.xhtml"
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:f="http://xmlns.jcp.org/jsf/core">
-
+<f:metadata>
+            <f:viewParam name="name" value="#{profile.profileName}"/>
+        </f:metadata>
     <ui:define name="content">
+        
         <div class="page-container profile" style="padding:20px">
             <div id="top-profile" class="row" style="margin-bottom: 10px">
                 <div class="col-md-3">
-                    <div><h:graphicImage value="p/#{profile.profile.picture}" width="180" height="200"/></div>
+                    <div><h:graphicImage value="p/#{profile.user.profile.picture}" width="180" height="200"/></div>
                     <h:form enctype="multipart/form-data">
                         <div>
                             <h:inputFile value="#{profile.part}" label="picture" required="true" requiredMessage="Select a picture"/>
@@ -19,7 +22,7 @@
                     </h:form>
                 </div>
                 <div class="col-md-9">
-                    <div><h2>John May</h2></div>
+                    <div><h2><h:outputText value="#{profile.profileName}"/></h2></div>
                     <div class="row">
                         <div class="col-md-3">
                             <div class="dashboard-stat blue">
@@ -28,7 +31,7 @@
                                 </div>
                                 <div class="details">
                                     <!--<div class="number">1,379</div>-->
-                                    <h:panelGroup layout="block" class="number"><h:outputText value="#{profile.profile.jokes}"/></h:panelGroup>
+                                    <h:panelGroup layout="block" class="number"><h:outputText value="#{profile.user.profile.jokes}"/></h:panelGroup>
                                     <div class="desc">Jokes</div>
                                 </div>
                             </div>
@@ -39,7 +42,7 @@
                                     <!--                                    <i class="icon-comments"></i>-->
                                 </div>
                                 <div class="details">
-                                    <h:panelGroup layout="block" class="number"><h:outputText value="#{profile.profile.proverbs}"/></h:panelGroup>
+                                    <h:panelGroup layout="block" class="number"><h:outputText value="#{profile.user.profile.proverbs}"/></h:panelGroup>
                                     <div class="desc">Proverbs</div>
                                 </div>
                             </div>
@@ -50,7 +53,7 @@
                                     <!--                                    <i class="icon-comments"></i>-->
                                 </div>
                                 <div class="details">
-                                    <h:panelGroup layout="block" class="number"><h:outputText value="#{profile.profile.quotes}"/></h:panelGroup>
+                                    <h:panelGroup layout="block" class="number"><h:outputText value="#{profile.user.profile.quotes}"/></h:panelGroup>
                                     <div class="desc">Quotes</div>
                                 </div>
                             </div>
@@ -68,7 +71,7 @@
                         </div>
                         <div class="portlet-body profile-bio">
                             <div class="row ">
-                                <div class="col-md-5">johnny walker</div>
+                                <div class="col-md-5">#{profile.user.screenName}</div>
                             </div>
                             <div class="row dhover" id="fullname_div">
                                 <div class="col-md-5">John May</div>
@@ -82,7 +85,9 @@
                             </div>
                             <div class="row ">
                                 <div class="col-md-5">Joined</div>
-                                <div class="right-actions">12 dec 2013</div>
+                                <div class="right-actions">
+                                    <h:outputText value="#{profile.user.createDate}"><f:convertDateTime pattern="dd-MMM-yyyy"/></h:outputText>
+                                </div>
                             </div>
                         </div>
                     </div>

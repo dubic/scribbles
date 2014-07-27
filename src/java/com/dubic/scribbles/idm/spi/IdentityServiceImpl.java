@@ -17,6 +17,7 @@ import com.dubic.scribbles.utils.IdmUtils;
 import com.google.gson.Gson;
 import java.util.Date;
 import java.util.List;
+import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityNotFoundException;
@@ -24,13 +25,13 @@ import javax.persistence.PersistenceException;
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.ProviderNotFoundException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.transaction.annotation.Transactional;
 
 /**performs all identity management ops.
  *<br>config properties
@@ -46,6 +47,14 @@ public class IdentityServiceImpl implements IdentityService,UserDetailsService{
     
     @Inject
     private Database db;
+    @Value("${default.profile.picture}")
+    private String avatar;
+    
+    @PostConstruct
+    public void inited(){
+        log.debug("AVATAR >>>>>>>>>> "+avatar);
+//        db.createQuery("SELECT c FROM JKComment c").getResultList();
+    }
     /**
      * encrypts password and creates a new user.email and screen name validation
      * should be done at client side
@@ -60,7 +69,9 @@ public class IdentityServiceImpl implements IdentityService,UserDetailsService{
         log.info("userRegistration - " + userData.toString());
         User user = new User(userData);
         //BUILD PROFILE
-        user.setProfile(new Profile());
+        Profile profile = new Profile();
+        profile.setPicture(avatar);
+        user.setProfile(profile);
         user.setActivated(false);
         IdmUtils.validate(user, User.class);
         String enc_pwd = IdmCrypt.encodeMD5(user.getPassword(),user.getEmail());
@@ -178,6 +189,12 @@ public class IdentityServiceImpl implements IdentityService,UserDetailsService{
     public User findUserByEmail(String email) {
         log.debug(String.format("find User By Email [%s]" , email));
         List<User> ulist = db.namedQuery("user.find.mail", User.class).setParameter("email", email).getResultList();
+        return IdmUtils.getFirstOrNull(ulist);
+    }
+    @Override
+    public User findUserByScreenName(String screenName){
+        log.debug(String.format("find User By Screen name [%s]" , screenName));
+        List<User> ulist = db.namedQuery("user.find.screenName", User.class).setParameter("screenName", screenName).getResultList();
         return IdmUtils.getFirstOrNull(ulist);
     }
 

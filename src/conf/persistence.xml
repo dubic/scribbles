@@ -6,12 +6,12 @@
     <class>com.dubic.scribbles.models.Joke</class>
     <class>com.dubic.scribbles.models.MediaItem</class>
     <class>com.dubic.scribbles.models.Profile</class>
-    <class>com.dubic.scribbles.models.Comment</class>
     <class>com.dubic.scribbles.application.LogModel</class>
     <class>com.dubic.scribbles.idm.models.Group</class>
     <class>com.dubic.scribbles.idm.models.PersistentLogin</class>
     <class>com.dubic.scribbles.idm.models.Role</class>
     <class>com.dubic.scribbles.idm.models.Token</class>
+    <class>com.dubic.scribbles.models.JKComment</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
   </persistence-unit>
 </persistence>

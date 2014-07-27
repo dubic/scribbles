@@ -6,7 +6,7 @@
 
 package test;
 
-import com.dubic.scribbles.models.Comment;
+import com.dubic.scribbles.models.JKComment;
 import java.util.Set;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -22,11 +22,11 @@ import org.apache.catalina.tribes.util.ExecutorFactory;
  */
 public class Test {
     public static void main(String[] jhdd){
-        Comment joke = new Comment();
+        JKComment joke = new JKComment();
         joke.setText("");
         ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
-        Set<ConstraintViolation<Comment>> results = factory.getValidator().validate(joke);
-        for (ConstraintViolation<Comment> constraintViolation : results) {
+        Set<ConstraintViolation<JKComment>> results = factory.getValidator().validate(joke);
+        for (ConstraintViolation<JKComment> constraintViolation : results) {
             System.out.println("field value >> "+constraintViolation.getPropertyPath());
             System.out.println("message >> "+constraintViolation.getMessage());
         }

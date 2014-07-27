@@ -37,6 +37,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 public class Joke extends Post implements Serializable {
 
     private List<MediaItem> mediaItems = new ArrayList<MediaItem>();
+//    private List<JKComment> comments = new ArrayList<JKComment>();
 
     public Joke() {
     }

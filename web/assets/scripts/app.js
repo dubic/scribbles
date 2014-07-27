@@ -923,7 +923,7 @@ var App = function () {
                 centerY = true;
             }
             el.block({
-                message: '<img src="../assets/img/ajax-loading.gif" align="">',
+                message: '<img src="assets/img/loading.gif" align="">',
                 centerY: centerY != undefined ? centerY : true,
                 css: {
                     top: '10%',
@@ -933,7 +933,7 @@ var App = function () {
                 },
                 overlayCSS: {
                     backgroundColor: '#000',
-                    opacity: 0.05,
+                    opacity: 0.5,
                     cursor: 'wait'
                 }
             });

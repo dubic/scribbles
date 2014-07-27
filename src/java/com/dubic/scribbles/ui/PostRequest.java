@@ -5,9 +5,13 @@
  */
 package com.dubic.scribbles.ui;
 
+import com.dubic.scribbles.dto.JokeData;
 import com.dubic.scribbles.faces.Script;
+import com.dubic.scribbles.models.Joke;
+import com.dubic.scribbles.models.Post;
 import com.dubic.scribbles.posts.JokeService;
 import com.dubic.scribbles.posts.PostException;
+import com.google.gson.Gson;
 import java.util.logging.Level;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
@@ -69,7 +73,9 @@ public class PostRequest extends AbstractManagedBean{
     public void postJoke() {
         log.debug(String.format("postJoke(%s)", postedMsg));
         try {
-            springContext.getBean(JokeService.class).savePost(postedMsg);
+            Post savedJoke = springContext.getBean(JokeService.class).savePost(postedMsg);
+            script.setPayload(new Gson().toJson(new JokeData((Joke) savedJoke)));
+            postedMsg = null;
         } catch (PersistenceException ex) {
             java.util.logging.Logger.getLogger(PostRequest.class.getName()).log(Level.SEVERE, null, ex);
         } catch (PostException ex) {
